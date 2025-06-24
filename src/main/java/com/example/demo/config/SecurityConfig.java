@@ -35,7 +35,7 @@ public class SecurityConfig {
           .authorizeHttpRequests(authz -> authz
               .requestMatchers("/", "/public/**", "/user", "/oauth2/**", "/v3/api-docs/**",
                       "/swagger-ui/**",
-                      "/swagger-ui.html", "/new-role", "/api/token/refresh", "/actuator/health", "/actuator/info", "/actuator/prometheus").permitAll()
+                      "/swagger-ui.html", "/new-role", "/api/token/refresh", "/actuator/health", "/actuator/info", "/actuator/prometheus", "/wompi/*").permitAll()
               .anyRequest().authenticated()
           )
           .oauth2Login(oauth2 -> oauth2

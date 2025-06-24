@@ -27,5 +27,6 @@ public class PaymentTransaction {
     private String paymentSourceId;
     private Long timestamp;
 
-    private String rawEvent; // Guarda el JSON completo para trazabilidad
+    @Column(length = 2000)
+    private String rawEvent;
 }
