@@ -66,7 +66,6 @@ public class UserController {
 
     @PostMapping("/api/token/refresh")
     public ResponseEntity<?> refreshToken(@CookieValue(value = "smartorlsasvcderyocxakfgh", required = false) String refreshToken) {
-        System.out.println("ESTA VUELTA ESTA FUNCIONANDO BIEN CHIMBA");
         if (refreshToken == null || !JwtUtil.validateToken(refreshToken)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

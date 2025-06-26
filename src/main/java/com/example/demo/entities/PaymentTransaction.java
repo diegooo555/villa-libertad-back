@@ -27,6 +27,6 @@ public class PaymentTransaction {
     private String paymentSourceId;
     private Long timestamp;
 
-    @Column(length = 2000)
+    @Lob
     private String rawEvent;
 }

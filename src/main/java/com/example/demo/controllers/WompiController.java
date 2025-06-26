@@ -41,8 +41,6 @@ public class WompiController {
                     + request.getAmount()
                     + request.getCurrency()
                     + secret;
-            System.out.println("Datos a decodificar " + dataToHash);
-
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hashBytes = digest.digest(dataToHash.getBytes(StandardCharsets.UTF_8));
 
@@ -70,7 +68,6 @@ public class WompiController {
         long timestamp = eventJson.path("timestamp").asLong();
         JsonNode dataNode = eventJson.path("data");
 
-        // Generar string para validar
         StringBuilder toHash = new StringBuilder();
         for (JsonNode property : properties) {
             String[] path = property.asText().split("\\.");
@@ -87,7 +84,7 @@ public class WompiController {
             return ResponseEntity.status(400).body("Invalid checksum");
         }
 
-        // Solo manejar transaction.updated (puedes expandir si quieres más eventos)
+        // TO DO :Por ahora se maneja transaction.updated luego añadir los demas eventos
         if (eventJson.path("event").asText().equals("transaction.updated")) {
             JsonNode transaction = eventJson.path("data").path("transaction");
             transactionService.upsertTransaction(
