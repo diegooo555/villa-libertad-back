@@ -33,7 +33,7 @@ public class Reservation {
     private Long numPersons;
 
     @Column(nullable = false)
-    private String status;
+    private String status = "UNCONFIRMED";
 
     @Column(name = "check_in", nullable = false)
     private LocalDate checkIn;

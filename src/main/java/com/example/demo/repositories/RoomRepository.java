@@ -19,7 +19,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
       AND r.capacity >= :guests
       AND r.id NOT IN (
         SELECT res.room.id FROM Reservation res
-        WHERE res.checkOut >= :startDate AND res.checkIn <= :endDate
+        WHERE res.checkOut >= :startDate AND res.checkIn <= :endDate AND res.status = 'CONFIRMED'
     )""")
     List<Room> findAvailableRooms(
             @Param("startDate") LocalDate startDate,

@@ -32,19 +32,23 @@ public class ReservationService {
         User user = userRepository.findByEmail(reservationDto.getEmail()).orElseThrow();
         Hotel hotel = hotelRepository.findById(reservationDto.getHotelId()).orElseThrow();
         Room room = roomRepository.findById(reservationDto.getRoomId()).orElseThrow();
-        Reservation reservation = new Reservation();
-        reservation.setUser(user);
-        reservation.setHotel(hotel);
-        reservation.setRoom(room);
-        reservation.setNumPersons(reservationDto.getNumPersons());
-        reservation.setStatus("CONFIRMING");
-        reservation.setCheckIn(reservationDto.getCheckIn());
-        reservation.setCheckOut(reservationDto.getCheckOut());
-        reservation.setReference(reservationDto.getReference());
-        reservation.setTotal(reservationDto.getTotal());
-        reservation.setDeposit(reservationDto.getDeposit());
-        reservationRepository.save(reservation);
-        return reservation;
+
+        Reservation reservation = reservationRepository.findByReference(reservationDto.getReference());
+        if(reservation != null) {
+            return reservation;
+        }
+        Reservation newReservation = new Reservation();
+        newReservation.setUser(user);
+        newReservation.setHotel(hotel);
+        newReservation.setRoom(room);
+        newReservation.setNumPersons(reservationDto.getNumPersons());
+        newReservation.setCheckIn(reservationDto.getCheckIn());
+        newReservation.setCheckOut(reservationDto.getCheckOut());
+        newReservation.setReference(reservationDto.getReference());
+        newReservation.setTotal(reservationDto.getTotal());
+        newReservation.setDeposit(reservationDto.getDeposit());
+        reservationRepository.save(newReservation);
+        return newReservation;
     }
 
     public void deleteReservation(Long id) {

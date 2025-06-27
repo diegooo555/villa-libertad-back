@@ -28,5 +28,6 @@ public class PaymentTransaction {
     private Long timestamp;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String rawEvent;
 }

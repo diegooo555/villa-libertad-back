@@ -22,23 +22,20 @@ public class ReservationController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Reservation> saveReservation(@RequestBody ReservationDto reservationDto, @RequestHeader(name = "Authorization") String authorizationHeader)  {
+    public ResponseEntity<?> saveReservation(@RequestBody ReservationDto reservationDto, @RequestHeader(name = "Authorization") String authorizationHeader)  {
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
         String token = authorizationHeader.substring(7);
         Claims claims = JwtUtil.getClaimsFromToken(token);
         String email = claims.getSubject();
         reservationDto.setEmail(email);
         Reservation savedReservation = reservationService.saveReservation(reservationDto);
-        return ResponseEntity.ok(savedReservation);
+        return  savedReservation != null ? ResponseEntity.ok(savedReservation) : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<Reservation>> getAllReservations(@PathVariable Long userId) {
-        System.out.println("userId: " + userId);
-        System.out.println("HOllaaaaaa");
         List<Reservation> reservations = reservationService.findReservationsByUserId(userId);
         return ResponseEntity.ok(reservations);
     }
