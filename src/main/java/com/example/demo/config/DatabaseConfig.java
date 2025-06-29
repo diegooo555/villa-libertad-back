@@ -26,9 +26,13 @@ public class DatabaseConfig {
     CommandLineRunner initRolesAndSuperAdmin(RoleRepository roleRepository, UserRepository userRepository) {
         return args -> {
             if (roleRepository.findByName("ROLE_USER").isEmpty()) {
-                Role roleAdmin = roleRepository.save(new Role("ROLE_USER"));
+                roleRepository.save(new Role("ROLE_USER"));
+            }
+            if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
+
+                Role roleAdmin = roleRepository.save(new Role("ROLE_ADMIN"));
                 User user = new User();
-                user.setEmail("edelmiratest@gmail.com");
+                user.setEmail("diegoooh2o@gmail.com");
                 user.setName("Edelmira");
                 user.setCity("Paipa");
                 user.setPhone("3132827258");
@@ -36,9 +40,6 @@ public class DatabaseConfig {
                 roles.add(roleAdmin);
                 user.setRoles(roles);
                 userRepository.save(user);
-            }
-            if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
-                roleRepository.save(new Role("ROLE_ADMIN"));
             }
             if (roleRepository.findByName("ROLE_VISITOR").isEmpty()) {
                 roleRepository.save(new Role("ROLE_VISITOR"));
