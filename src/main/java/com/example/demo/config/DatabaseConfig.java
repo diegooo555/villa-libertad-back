@@ -5,24 +5,37 @@ import com.example.demo.dtos.RoomDto;
 import com.example.demo.entities.Hotel;
 import com.example.demo.entities.Role;
 import com.example.demo.entities.Room;
+import com.example.demo.entities.User;
 import com.example.demo.repositories.HotelRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.RoomRepository;
+import com.example.demo.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 @Profile("dev")
 public class DatabaseConfig {
     @Bean
-    CommandLineRunner initRoles(RoleRepository roleRepository) {
+    CommandLineRunner initRolesAndSuperAdmin(RoleRepository roleRepository, UserRepository userRepository) {
         return args -> {
             if (roleRepository.findByName("ROLE_USER").isEmpty()) {
-                roleRepository.save(new Role("ROLE_USER"));
+                Role roleAdmin = roleRepository.save(new Role("ROLE_USER"));
+                User user = new User();
+                user.setEmail("edelmiratest@gmail.com");
+                user.setName("Edelmira");
+                user.setCity("Paipa");
+                user.setPhone("3132827258");
+                Set<Role> roles = new HashSet<>();
+                roles.add(roleAdmin);
+                user.setRoles(roles);
+                userRepository.save(user);
             }
             if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
                 roleRepository.save(new Role("ROLE_ADMIN"));
