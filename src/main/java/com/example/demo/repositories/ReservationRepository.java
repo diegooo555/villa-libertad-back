@@ -13,10 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    List<Reservation> findByUserId(Long userId);
+    List<Reservation> findByUserIdAndStatus(Long userId, String status);
     Reservation findByReference(String reference);
+
     @Modifying
     @Transactional
     @Query("UPDATE Reservation r SET r.status = :status WHERE r.reference = :reference")
-    int updateStatusByReference(@Param("reference") String reference, @Param("status") String status);
+    void updateStatusByReference(@Param("reference") String reference, @Param("status") String status);
 }

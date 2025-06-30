@@ -3,6 +3,8 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import com.example.demo.dtos.ReservationDto;
+import com.example.demo.entities.User;
+import com.example.demo.services.UserService;
 import com.example.demo.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.http.HttpStatus;
@@ -16,9 +18,11 @@ import com.example.demo.services.ReservationService;
 public class ReservationController {
 
     private final ReservationService reservationService;
-    
-    public ReservationController(ReservationService reservationService) {
+    private final UserService userService;
+
+    public ReservationController(ReservationService reservationService, UserService userService) {
         this.reservationService = reservationService;
+        this.userService = userService;
     }
 
     @PostMapping("/save")
@@ -34,9 +38,10 @@ public class ReservationController {
         return  savedReservation != null ? ResponseEntity.ok(savedReservation) : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<Reservation>> getAllReservations(@PathVariable Long userId) {
-        List<Reservation> reservations = reservationService.findReservationsByUserId(userId);
+    @GetMapping("/{email}")
+    public ResponseEntity<List<Reservation>> getAllReservations(@PathVariable String email) {
+        User user = userService.findUserByEmail(email);
+        List<Reservation> reservations = reservationService.findReservationsByUserId(user.getId());
         return ResponseEntity.ok(reservations);
     }
 
