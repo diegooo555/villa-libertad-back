@@ -56,6 +56,6 @@ public class ReservationService {
     }
 
     public List<Reservation> findReservationsByUserId(Long userId) {
-        return reservationRepository.findByUserIdAndStatus(userId, "CONFIRMED");
+        return reservationRepository.findByUserIdAndStatus(userId, "UNCONFIRMED");
     }
 }

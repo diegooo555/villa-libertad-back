@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,6 +39,9 @@ public class Room {
 
     @Column(name = "url_img", nullable = false)
     private String urlImg;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoomImage> images = new ArrayList<>();
 
     @Column(nullable = false)
     private Integer capacity;

@@ -2,10 +2,7 @@ package com.example.demo.config;
 
 import com.example.demo.dtos.HotelDto;
 import com.example.demo.dtos.RoomDto;
-import com.example.demo.entities.Hotel;
-import com.example.demo.entities.Role;
-import com.example.demo.entities.Room;
-import com.example.demo.entities.User;
+import com.example.demo.entities.*;
 import com.example.demo.repositories.HotelRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.RoomRepository;
@@ -56,6 +53,7 @@ public class DatabaseConfig {
             hotelDto.setDescription("Hotel bonito ubicado en Paipa");
             hotelDto.setUrlImg("https://i.imgur.com/FG6h57i.jpeg");
             hotelRepository.save(new Hotel(hotelDto));
+
             // Buscar el hotel que creaste previamente
             Hotel hotel = hotelRepository.findByName("Villa");
 
@@ -65,16 +63,23 @@ public class DatabaseConfig {
                 roomDto.setType("Suite");
                 roomDto.setDescription("Habitación amplia para toda la familia");
                 roomDto.setPrice(new BigDecimal("200000"));
-                roomDto.setUrlImg("https://i.imgur.com/0JHzfkg.jpeg");
+                roomDto.setUrlImg("https://i.imgur.com/0JHzfkg.jpeg"); // Imagen destacada
                 roomDto.setCapacity(5);
 
                 Room room = new Room(roomDto);
                 room.setHotel(hotel); // Asignar el hotel
+
+                // Añadir imágenes adicionales
+                room.getImages().add(new RoomImage("https://i.imgur.com/0JHzfkg.jpeg", room)); // misma imagen destacada
+                room.getImages().add(new RoomImage("https://i.imgur.com/fgRlkHG.jpeg", room));
+                room.getImages().add(new RoomImage("https://i.imgur.com/k2TLD4O.jpeg", room));
+
                 roomRepository.save(room);
             } else {
                 System.out.println("❌ Hotel no encontrado, no se creó la habitación.");
             }
         };
     }
+
 
 }
