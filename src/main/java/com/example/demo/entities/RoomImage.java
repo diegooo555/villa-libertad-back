@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RoomImage {
     @Id
-    @net.minidev.json.annotate.JsonIgnore
+    @JsonIgnore
     @GeneratedValue(generator = "UUID")
     @Column(updatable = false, nullable = false, columnDefinition = "UUID")
     private UUID id;
