@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.UUID;
 
@@ -15,9 +16,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RoomImage {
     @Id
+    @GeneratedValue
     @JsonIgnore
-    @GeneratedValue(generator = "UUID")
-    @Column(updatable = false, nullable = false, columnDefinition = "UUID")
+    @Column(updatable = false, nullable = false, columnDefinition = "uuid")
     private UUID id;
 
     @Column(name = "url", nullable = false)

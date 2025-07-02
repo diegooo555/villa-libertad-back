@@ -18,7 +18,7 @@ public class Role {
 
     @Id
     @JsonIgnore
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue
     @Column(updatable = false, nullable = false, columnDefinition = "UUID")
     private UUID id;
 

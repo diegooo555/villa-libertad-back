@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
-@Profile("dev")
 public class DatabaseConfig {
     @Bean
     CommandLineRunner initRolesAndSuperAdmin(RoleRepository roleRepository, UserRepository userRepository) {
@@ -58,16 +57,7 @@ public class DatabaseConfig {
             Hotel hotel = hotelRepository.findByName("Villa");
 
             if (hotel != null) {
-                RoomDto roomDto = new RoomDto();
-                roomDto.setName("Suite Familiar");
-                roomDto.setType("Suite");
-                roomDto.setDescription("Habitación amplia para toda la familia");
-                roomDto.setPrice(new BigDecimal("200000"));
-                roomDto.setUrlImg("https://i.imgur.com/0JHzfkg.jpeg"); // Imagen destacada
-                roomDto.setCapacity(5);
-
-                Room room = new Room(roomDto);
-                room.setHotel(hotel); // Asignar el hotel
+                Room room = getRoom(hotel);
 
                 // Añadir imágenes adicionales
                 room.getImages().add(new RoomImage("https://i.imgur.com/0JHzfkg.jpeg", room)); // misma imagen destacada
@@ -79,6 +69,20 @@ public class DatabaseConfig {
                 System.out.println("❌ Hotel no encontrado, no se creó la habitación.");
             }
         };
+    }
+
+    private static Room getRoom(Hotel hotel) {
+        RoomDto roomDto = new RoomDto();
+        roomDto.setName("Suite Familiar");
+        roomDto.setType("Suite");
+        roomDto.setDescription("Habitación amplia para toda la familia");
+        roomDto.setPrice(new BigDecimal("3400"));
+        roomDto.setUrlImg("https://i.imgur.com/0JHzfkg.jpeg"); // Imagen destacada
+        roomDto.setCapacity(5);
+
+        Room room = new Room(roomDto);
+        room.setHotel(hotel); // Asignar el hotel
+        return room;
     }
 
 

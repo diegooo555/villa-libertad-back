@@ -19,7 +19,7 @@ import net.minidev.json.annotate.JsonIgnore;
 public class User {
     @Id
     @JsonIgnore
-    @GeneratedValue(generator = "UUID")
+    @GeneratedValue
     @Column(updatable = false, nullable = false, columnDefinition = "UUID")
     private UUID id;
     @Column(nullable = false, unique = true)
