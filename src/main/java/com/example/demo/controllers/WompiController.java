@@ -84,7 +84,6 @@ public class WompiController {
             return ResponseEntity.status(400).body("Invalid checksum");
         }
 
-        // TO DO :Por ahora se maneja transaction.updated luego añadir los demas eventos
         if (eventJson.path("event").asText().equals("transaction.updated")) {
             JsonNode transaction = eventJson.path("data").path("transaction");
             transactionService.upsertTransaction(

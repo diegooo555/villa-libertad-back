@@ -13,8 +13,7 @@ import lombok.*;
 public class PaymentTransaction {
 
     @Id
-    private String id; // Este es el ID de la transacción de Wompi
-
+    private String id;
     private Long amountInCents;
     private String reference;
     private String customerEmail;
@@ -26,8 +25,4 @@ public class PaymentTransaction {
     private String paymentLinkId;
     private String paymentSourceId;
     private Long timestamp;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
-    private String rawEvent;
 }

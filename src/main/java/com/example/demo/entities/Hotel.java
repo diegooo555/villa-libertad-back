@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Getter
@@ -15,10 +17,11 @@ import java.time.LocalDateTime;
 @Table(name = "hotels")
 @NoArgsConstructor
 public class Hotel {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @JsonIgnore
+    @GeneratedValue(generator = "UUID")
+    @Column(updatable = false, nullable = false, columnDefinition = "UUID")
+    private UUID id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;

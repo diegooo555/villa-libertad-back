@@ -16,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 public class UserController {
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
+    public ResponseEntity<User> getUserById(@PathVariable("id") UUID id){
         User user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }

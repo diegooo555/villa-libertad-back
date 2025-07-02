@@ -2,6 +2,7 @@ package com.example.demo.entities;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 import com.example.demo.dtos.UserDto;
 import jakarta.persistence.*;
@@ -18,8 +19,9 @@ import net.minidev.json.annotate.JsonIgnore;
 public class User {
     @Id
     @JsonIgnore
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @Column(updatable = false, nullable = false, columnDefinition = "UUID")
+    private UUID id;
     @Column(nullable = false, unique = true)
     private String email;
     private String name;

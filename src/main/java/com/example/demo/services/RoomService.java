@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class RoomService {
@@ -21,7 +22,7 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
-    public List<Room> findAllRoomsByHotelId(Long hotelId) {
+    public List<Room> findAllRoomsByHotelId(UUID hotelId) {
         return roomRepository.findByHotelId(hotelId);
     }
 

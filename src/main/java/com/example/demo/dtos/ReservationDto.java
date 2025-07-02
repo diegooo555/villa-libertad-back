@@ -5,13 +5,14 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class ReservationDto {
     private String email;
-    private Long hotelId;
-    private Long roomId;
+    private UUID hotelId;
+    private UUID roomId;
     private Long numPersons;
     private LocalDate checkIn;
     private LocalDate checkOut;

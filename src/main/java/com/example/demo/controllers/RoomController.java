@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 
 @RestController
@@ -41,15 +42,19 @@ public class RoomController {
         }
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<?> getRoomsHotel(@PathVariable("id") UUID id) {
+        List<Room> rooms = roomService.findAllRoomsByHotelId(id);
+        if (rooms.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.ok(rooms);
+        }
+    }
+
     @PostMapping("/save")
     public ResponseEntity<?> saveRoom(RoomDto roomDto){
-        try {
-            Room room = roomService.saveRoom(roomDto);
-
-            return ResponseEntity.ok(room);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al crear la habitacion: " + e.getMessage());
-        }
+        Room room = roomService.saveRoom(roomDto);
+        return ResponseEntity.ok(room);
     }
 }

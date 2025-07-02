@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, Long> {
-    List<Room> findByHotelId(Long hotelId);
+public interface RoomRepository extends JpaRepository<Room, UUID> {
+    List<Room> findByHotelId(UUID hotelId);
 
     @Query("""
     SELECT r FROM Room r

@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.example.demo.dtos.ReservationDto;
 import com.example.demo.entities.Hotel;
@@ -51,11 +52,11 @@ public class ReservationService {
         return newReservation;
     }
 
-    public void deleteReservation(Long id) {
+    public void deleteReservation(UUID id) {
         reservationRepository.deleteById(id);
     }
 
-    public List<Reservation> findReservationsByUserId(Long userId) {
+    public List<Reservation> findReservationsByUserId(UUID userId) {
         return reservationRepository.findByUserIdAndStatus(userId, "UNCONFIRMED");
     }
 }

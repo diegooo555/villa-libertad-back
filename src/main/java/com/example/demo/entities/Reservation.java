@@ -3,9 +3,12 @@ package com.example.demo.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Getter
 @Setter
@@ -14,8 +17,10 @@ import lombok.Setter;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @JsonIgnore
+    @GeneratedValue(generator = "UUID")
+    @Column(updatable = false, nullable = false, columnDefinition = "UUID")
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

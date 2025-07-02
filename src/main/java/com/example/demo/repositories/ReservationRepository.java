@@ -1,6 +1,7 @@
 package com.example.demo.repositories;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,8 +13,8 @@ import com.example.demo.entities.Reservation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-    List<Reservation> findByUserIdAndStatus(Long userId, String status);
+public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
+    List<Reservation> findByUserIdAndStatus(UUID userId, String status);
     Reservation findByReference(String reference);
 
     @Modifying

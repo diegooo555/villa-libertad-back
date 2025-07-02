@@ -3,6 +3,7 @@ package com.example.demo.services;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import com.example.demo.entities.Role;
 import org.springframework.stereotype.Service;
@@ -43,15 +44,11 @@ public class UserService {
                 : Set.of(roleService.findRoleByName("ROLE_VISITOR"));
     }
     
-    public User findUserById(Long id) {
+    public User findUserById(UUID id) {
         return userRepository.findById(id).orElse(null);
     }
 
     public User findUserByEmail(String email){
         return userRepository.findByEmail(email).orElse(null);
-    }
-    
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
     }
 }

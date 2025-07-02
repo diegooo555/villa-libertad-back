@@ -35,7 +35,6 @@ public class PaymentTransactionService {
         transaction.setPaymentLinkId(transactionData.path("payment_link_id").asText(null));
         transaction.setPaymentSourceId(transactionData.path("payment_source_id").asText(null));
         transaction.setTimestamp(timestamp);
-        transaction.setRawEvent(rawEvent);
 
         repository.save(transaction);
         reservationRepository.updateStatusByReference(reference, "CONFIRMED");

@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.example.demo.dtos.ReservationDto;
 import com.example.demo.entities.User;
@@ -46,7 +47,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReservation(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteReservation(@PathVariable UUID id) {
         reservationService.deleteReservation(id);
         return ResponseEntity.ok().build();
     }
