@@ -10,7 +10,6 @@ import com.example.demo.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -18,17 +17,28 @@ import java.util.Set;
 
 @Configuration
 public class DatabaseConfig {
+
     @Bean
     CommandLineRunner initRolesAndSuperAdmin(RoleRepository roleRepository, UserRepository userRepository) {
         return args -> {
             if (roleRepository.findByName("ROLE_USER").isEmpty()) {
                 roleRepository.save(new Role("ROLE_USER"));
             }
-            if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
 
-                Role roleAdmin = roleRepository.save(new Role("ROLE_ADMIN"));
+            if (roleRepository.findByName("ROLE_ADMIN").isEmpty()) {
+                roleRepository.save(new Role("ROLE_ADMIN"));
+            }
+
+            if (roleRepository.findByName("ROLE_VISITOR").isEmpty()) {
+                roleRepository.save(new Role("ROLE_VISITOR"));
+            }
+
+            String adminEmail = "diegoooh2o@gmail.com";
+            if (userRepository.findByEmail(adminEmail).isEmpty()) {
+                Role roleAdmin = roleRepository.findByName("ROLE_ADMIN").orElseThrow();
+
                 User user = new User();
-                user.setEmail("diegoooh2o@gmail.com");
+                user.setEmail(adminEmail);
                 user.setName("Edelmira");
                 user.setCity("Paipa");
                 user.setPhone("3132827258");
@@ -37,36 +47,31 @@ public class DatabaseConfig {
                 user.setRoles(roles);
                 userRepository.save(user);
             }
-            if (roleRepository.findByName("ROLE_VISITOR").isEmpty()) {
-                roleRepository.save(new Role("ROLE_VISITOR"));
-            }
         };
     }
 
     @Bean
     CommandLineRunner initHotelAndRooms(RoomRepository roomRepository, HotelRepository hotelRepository) {
         return args -> {
-            HotelDto hotelDto = new HotelDto();
-            hotelDto.setName("Villa");
-            hotelDto.setAddress("Pantano de Vargas");
-            hotelDto.setDescription("Hotel bonito ubicado en Paipa");
-            hotelDto.setUrlImg("https://i.imgur.com/FG6h57i.jpeg");
-            hotelRepository.save(new Hotel(hotelDto));
-
-            // Buscar el hotel que creaste previamente
             Hotel hotel = hotelRepository.findByName("Villa");
+            if (hotel == null) {
+                HotelDto hotelDto = new HotelDto();
+                hotelDto.setName("Villa");
+                hotelDto.setAddress("Pantano de Vargas");
+                hotelDto.setDescription("Hotel bonito ubicado en Paipa");
+                hotelDto.setUrlImg("https://i.imgur.com/FG6h57i.jpeg");
+                hotel = hotelRepository.save(new Hotel(hotelDto));
+            }
 
-            if (hotel != null) {
+            String roomName = "Suite Familiar";
+            if (!roomRepository.existsByNameAndHotel(roomName, hotel)) {
                 Room room = getRoom(hotel);
 
-                // Añadir imágenes adicionales
-                room.getImages().add(new RoomImage("https://i.imgur.com/0JHzfkg.jpeg", room)); // misma imagen destacada
+                room.getImages().add(new RoomImage("https://i.imgur.com/0JHzfkg.jpeg", room));
                 room.getImages().add(new RoomImage("https://i.imgur.com/fgRlkHG.jpeg", room));
                 room.getImages().add(new RoomImage("https://i.imgur.com/k2TLD4O.jpeg", room));
 
                 roomRepository.save(room);
-            } else {
-                System.out.println("❌ Hotel no encontrado, no se creó la habitación.");
             }
         };
     }
@@ -77,13 +82,11 @@ public class DatabaseConfig {
         roomDto.setType("Suite");
         roomDto.setDescription("Habitación amplia para toda la familia");
         roomDto.setPrice(new BigDecimal("3400"));
-        roomDto.setUrlImg("https://i.imgur.com/0JHzfkg.jpeg"); // Imagen destacada
+        roomDto.setUrlImg("https://i.imgur.com/0JHzfkg.jpeg");
         roomDto.setCapacity(5);
 
         Room room = new Room(roomDto);
-        room.setHotel(hotel); // Asignar el hotel
+        room.setHotel(hotel);
         return room;
     }
-
-
 }

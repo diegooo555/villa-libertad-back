@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.entities.Hotel;
 import com.example.demo.entities.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -28,4 +29,5 @@ public interface RoomRepository extends JpaRepository<Room, UUID> {
             @Param("guests") int guests
     );
 
+    boolean existsByNameAndHotel(String name, Hotel hotel);
 }
