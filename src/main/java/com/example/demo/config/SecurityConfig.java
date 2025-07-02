@@ -33,9 +33,9 @@ public class SecurityConfig {
           .cors(Customizer.withDefaults())
           .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
           .authorizeHttpRequests(authz -> authz
-              .requestMatchers("/", "/public/**", "/user", "/oauth2/**", "/v3/api-docs/**",
-                      "/swagger-ui/**",
-                      "/swagger-ui.html", "/new-role", "/api/token/refresh", "/actuator/health", "/actuator/info", "/actuator/prometheus", "/wompi/*").permitAll()
+              .requestMatchers("/", "/public/**", "/user", "/oauth2/**", "/v3/api-docs/**", "/swagger-ui/**",
+                      "/swagger-ui.html", "/new-role", "/api/token/refresh", "/actuator/health", "/actuator/info",
+                      "/actuator/prometheus", "/wompi/event", "/reviews/*").permitAll()
               .anyRequest().authenticated()
           )
           .oauth2Login(oauth2 -> oauth2
