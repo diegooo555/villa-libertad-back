@@ -10,11 +10,13 @@ import com.example.demo.utils.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.entities.Reservation;
 import com.example.demo.services.ReservationService;
 
 @RestController
+@PreAuthorize("hasRole('USER')")
 @RequestMapping("/reservations")
 public class ReservationController {
 
