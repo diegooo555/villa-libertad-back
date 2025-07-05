@@ -3,6 +3,7 @@ package com.example.demo.config;
 import com.example.demo.dtos.HotelDto;
 import com.example.demo.dtos.RoomDto;
 import com.example.demo.entities.*;
+import com.example.demo.exepcions.ResourceNotFoundException;
 import com.example.demo.repositories.HotelRepository;
 import com.example.demo.repositories.RoleRepository;
 import com.example.demo.repositories.RoomRepository;
@@ -10,11 +11,13 @@ import com.example.demo.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+@Profile("dev")
 @Configuration
 public class DatabaseConfig {
 
@@ -53,7 +56,7 @@ public class DatabaseConfig {
     @Bean
     CommandLineRunner initHotelAndRooms(RoomRepository roomRepository, HotelRepository hotelRepository) {
         return args -> {
-            Hotel hotel = hotelRepository.findByName("Villa");
+            Hotel hotel = hotelRepository.findByName("Villa").orElseThrow(() -> new ResourceNotFoundException("Hotel not found"));
             if (hotel == null) {
                 HotelDto hotelDto = new HotelDto();
                 hotelDto.setName("Villa");

@@ -53,7 +53,6 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         String accessToken = JwtUtil.generateAccessToken(givenName, picture, email, roles);
         String refreshToken = JwtUtil.generateRefreshToken(email, givenName, picture);
 
-// ✅ Crear cookie segura con el token
         ResponseCookie cookie = ResponseCookie.from("smartorlsasvcderyocxakfgh", refreshToken)
                 .httpOnly(true)
                 .secure(true) // true solo en producción con HTTPS
@@ -64,7 +63,6 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
-// ✅ Redirigir después de agregar la cookie
         String redirectUrl = frontendUrl + "/oauth2-redirect?token=" + accessToken + "&isNewUser=" + (userObj == null);
         response.sendRedirect(redirectUrl);
     }
