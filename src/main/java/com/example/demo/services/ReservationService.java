@@ -34,7 +34,7 @@ public class ReservationService {
         Hotel hotel = hotelRepository.findById(reservationDto.getHotelId()).orElseThrow();
         Room room = roomRepository.findById(reservationDto.getRoomId()).orElseThrow();
 
-        Reservation reservation = reservationRepository.findByReference(reservationDto.getReference());
+        Reservation reservation = reservationRepository.findByReference(reservationDto.getReference()).orElse(null);
         if(reservation != null) {
             return reservation;
         }

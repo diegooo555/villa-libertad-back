@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.Role;
+import com.example.demo.exepcions.ResourceNotFoundException;
 import com.example.demo.repositories.RoleRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,6 @@ public class RoleService {
     }
 
     public Role findRoleByName(String name) {
-        return roleRepository.findByName(name).orElse(null);
+        return roleRepository.findByName(name).orElseThrow(() -> new ResourceNotFoundException("Role not found"));
     }
 }

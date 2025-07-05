@@ -1,6 +1,7 @@
 package com.example.demo.repositories;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, UUID> {
     List<Reservation> findByUserIdAndStatus(UUID userId, String status);
-    Reservation findByReference(String reference);
+    Optional<Reservation> findByReference(String reference);
 
     @Modifying
     @Transactional

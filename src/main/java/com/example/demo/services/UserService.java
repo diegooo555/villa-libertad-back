@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.demo.entities.Role;
+import com.example.demo.exepcions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dtos.UserDto;
@@ -21,10 +22,6 @@ public class UserService {
     public UserService(UserRepository userRepository, RoleService roleService) {
         this.userRepository = userRepository;
         this.roleService = roleService;
-    }
-    
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
     }
     
     public User saveUser(UserDto userDto) {
@@ -45,10 +42,10 @@ public class UserService {
     }
     
     public User findUserById(UUID id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
     }
 
     public User findUserByEmail(String email){
-        return userRepository.findByEmail(email).orElse(null);
+        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User with email " + email + " not found"));
     }
 }
