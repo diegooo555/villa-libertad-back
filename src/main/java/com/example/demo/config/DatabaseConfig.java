@@ -56,14 +56,12 @@ public class DatabaseConfig {
     @Bean
     CommandLineRunner initHotelAndRooms(RoomRepository roomRepository, HotelRepository hotelRepository) {
         return args -> {
-            Hotel hotel = hotelRepository.findByName("Villa").orElseThrow(() -> new ResourceNotFoundException("Hotel not found"));
-            if (hotel == null) {
-                HotelDto hotelDto = new HotelDto();
-                hotelDto.setName("Villa");
-                hotelDto.setAddress("Pantano de Vargas");
-                hotelDto.setDescription("Hotel bonito ubicado en Paipa");
-                hotelDto.setUrlImg("https://i.imgur.com/FG6h57i.jpeg");
-                hotel = hotelRepository.save(new Hotel(hotelDto));
+            Hotel hotel = hotelRepository.findByName("Villa").orElse(null);
+            if(hotel == null) {
+                HotelDto hotelDto =
+                        new HotelDto("Villa", "Paipa Pantano de Vargas", "https://i.imgur.com/0JHzfkg.jpeg", "Chimba de Hotel");
+                hotel = new Hotel(hotelDto);
+                hotelRepository.save(hotel);
             }
 
             String roomName = "Suite Familiar";

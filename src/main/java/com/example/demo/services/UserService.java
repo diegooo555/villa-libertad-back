@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,6 +45,6 @@ public class UserService {
     }
 
     public User findUserByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User with email " + email + " not found"));
+        return userRepository.findByEmail(email).orElse(null);
     }
 }
