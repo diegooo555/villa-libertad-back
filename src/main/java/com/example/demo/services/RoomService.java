@@ -21,7 +21,6 @@ public class RoomService {
         this.roomRepository = roomRepository;
     }
 
-    @Transactional
     public Room saveRoom(RoomDto roomDto) {
         if(roomDto.getPrice().compareTo(new BigDecimal("50000.00")) < 0) {
             throw new BadRequestException("Price must be greater than or equal to 50000");

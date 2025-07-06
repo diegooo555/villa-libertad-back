@@ -1,12 +1,15 @@
 package com.example.demo.entities;
 
 import com.example.demo.dtos.HotelDto;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.minidev.json.annotate.JsonIgnore;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -18,7 +21,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Hotel {
     @Id
-    @JsonIgnore
     @GeneratedValue
     @Column(updatable = false, nullable = false, columnDefinition = "UUID")
     private UUID id;

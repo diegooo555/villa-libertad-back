@@ -1,7 +1,10 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
 import lombok.*;
+
 
 @Entity
 @Table(name = "payment_transactions")

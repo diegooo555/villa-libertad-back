@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Reservation;
 import com.example.demo.repositories.ReservationRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReservationService {
@@ -29,6 +30,7 @@ public class ReservationService {
         this.roomRepository = roomRepository;
     }
 
+    @Transactional
     public Reservation saveReservation(ReservationDto reservationDto) {
         User user = userRepository.findByEmail(reservationDto.getEmail()).orElseThrow();
         Hotel hotel = hotelRepository.findById(reservationDto.getHotelId()).orElseThrow();

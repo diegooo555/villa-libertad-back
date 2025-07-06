@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dtos.UserDto;
 import com.example.demo.entities.User;
 import com.example.demo.repositories.UserRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -22,7 +23,8 @@ public class UserService {
         this.userRepository = userRepository;
         this.roleService = roleService;
     }
-    
+
+    @Transactional
     public User saveUser(UserDto userDto) {
         User user = new User(userDto);
         Role role = roleService.findRoleByName("ROLE_USER");

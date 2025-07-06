@@ -4,6 +4,7 @@ import com.example.demo.repositories.PaymentTransactionRepository;
 import com.example.demo.repositories.ReservationRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaymentTransactionService {
@@ -16,6 +17,7 @@ public class PaymentTransactionService {
         this.reservationRepository = reservationRepository;
     }
 
+    @Transactional
     public void upsertTransaction(JsonNode transactionData, String environment, long timestamp, String rawEvent) {
         String id = transactionData.path("id").asText();
 
