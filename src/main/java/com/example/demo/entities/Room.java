@@ -1,7 +1,6 @@
 package com.example.demo.entities;
 
 import com.example.demo.dtos.RoomDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -28,7 +27,6 @@ import java.util.UUID;
 public class Room {
 
     @Id
-    @JsonIgnore
     @GeneratedValue
     @Column(updatable = false, nullable = false, columnDefinition = "UUID")
     private UUID id;
