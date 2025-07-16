@@ -89,8 +89,7 @@ public class WompiController {
             transactionService.upsertTransaction(
                     transaction,
                     eventJson.path("environment").asText(),
-                    timestamp,
-                    body
+                    timestamp
             );
         }
 

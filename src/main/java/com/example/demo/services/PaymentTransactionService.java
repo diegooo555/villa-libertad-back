@@ -18,7 +18,7 @@ public class PaymentTransactionService {
     }
 
     @Transactional
-    public void upsertTransaction(JsonNode transactionData, String environment, long timestamp, String rawEvent) {
+    public void upsertTransaction(JsonNode transactionData, String environment, long timestamp) {
         String id = transactionData.path("id").asText();
 
         PaymentTransaction transaction = repository.findById(id).orElse(PaymentTransaction.builder()

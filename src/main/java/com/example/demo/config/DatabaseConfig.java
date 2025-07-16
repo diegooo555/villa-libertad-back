@@ -67,10 +67,8 @@ public class DatabaseConfig {
             String roomName = "Suite Familiar";
             if (!roomRepository.existsByNameAndHotel(roomName, hotel)) {
                 Room room = getRoom(hotel);
-
-                room.getImages().add(new RoomImage("https://i.imgur.com/0JHzfkg.jpeg", room));
-                room.getImages().add(new RoomImage("https://i.imgur.com/fgRlkHG.jpeg", room));
-                room.getImages().add(new RoomImage("https://i.imgur.com/k2TLD4O.jpeg", room));
+                room.getImages().add(new RoomImage("https://i.imgur.com/9iBl5AV.jpeg", room));
+                room.getImages().add(new RoomImage("https://i.imgur.com/hWZItGA.jpeg", room));
 
                 roomRepository.save(room);
             }
