@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +54,7 @@ public class RoomController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveRoom(RoomDto roomDto){
+    public ResponseEntity<?> saveRoom(@RequestBody RoomDto roomDto){
         Room room = roomService.saveRoom(roomDto);
         return ResponseEntity.ok(room);
     }

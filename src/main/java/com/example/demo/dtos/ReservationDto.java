@@ -7,26 +7,47 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.DecimalMin;
 
 @Getter
 @Setter
 public class ReservationDto {
+
     @NotBlank(message = "Email cannot be empty")
+    @Email(message = "Invalid email format")
     private String email;
-    @NotBlank(message = "Hotel Id cannot be empty")
+
+    @NotNull(message = "Hotel Id cannot be null")
     private UUID hotelId;
-    @NotBlank(message = "Room Id cannot be empty")
+
+    @NotNull(message = "Room Id cannot be null")
     private UUID roomId;
-    @NotBlank(message = "Nun Persons cannot be empty")
+
+    @NotNull(message = "Number of persons cannot be null")
+    @Min(value = 1, message = "Number of persons must be at least 1")
     private Long numPersons;
-    @NotBlank(message = "Check in cannot be empty")
+
+    @NotNull(message = "Check-in date cannot be null")
+    @FutureOrPresent(message = "Check-in date must be today or in the future")
     private LocalDate checkIn;
-    @NotBlank(message = "Check out cannot be empty")
+
+    @NotNull(message = "Check-out date cannot be null")
+    @Future(message = "Check-out date must be in the future")
     private LocalDate checkOut;
+
     @NotBlank(message = "Reference cannot be empty")
     private String reference;
-    @NotBlank(message = "Total cannot be empty")
+
+    @NotNull(message = "Total cannot be null")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Total must be greater than 0")
     private BigDecimal total;
-    @NotBlank(message = "Deposit cannot be empty")
+
+    @NotNull(message = "Deposit cannot be null")
+    @DecimalMin(value = "0.0", message = "Deposit must be zero or greater")
     private BigDecimal deposit;
 }

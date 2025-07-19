@@ -1,9 +1,11 @@
 package com.example.demo.services;
 
 import com.example.demo.dtos.RoomDto;
+import com.example.demo.entities.Hotel;
 import com.example.demo.entities.Room;
 import com.example.demo.exepcions.BadRequestException;
 import com.example.demo.exepcions.ResourceNotFoundException;
+import com.example.demo.repositories.HotelRepository;
 import com.example.demo.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +18,20 @@ import java.util.UUID;
 @Service
 public class RoomService {
     private final RoomRepository roomRepository;
+    private final HotelRepository hotelRepository;
 
-    public RoomService(RoomRepository roomRepository) {
+    public RoomService(RoomRepository roomRepository, HotelRepository hotelRepository) {
         this.roomRepository = roomRepository;
+        this.hotelRepository = hotelRepository;
     }
 
     public Room saveRoom(RoomDto roomDto) {
         if(roomDto.getPrice().compareTo(new BigDecimal("50000.00")) < 0) {
             throw new BadRequestException("Price must be greater than or equal to 50000");
         }
+        Hotel hotel = hotelRepository.findById(roomDto.getHotelId()).orElseThrow( () -> new ResourceNotFoundException("Hotel"));
         Room room = new Room(roomDto);
+        room.setHotel(hotel);
         return roomRepository.save(room);
     }
 
