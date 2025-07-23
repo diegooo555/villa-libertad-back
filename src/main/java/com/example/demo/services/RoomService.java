@@ -8,7 +8,6 @@ import com.example.demo.exepcions.ResourceNotFoundException;
 import com.example.demo.repositories.HotelRepository;
 import com.example.demo.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
